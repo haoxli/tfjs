@@ -147,7 +147,7 @@ export class WebGPUBackend extends KernelBackend {
     this.queue = device.queue;
     this.currentCommandEncoder = null;
     this.currentComputePass = null;
-    this.supportTimeQuery = device.features.has('timestamp-query');
+    this.supportTimeQuery = device.features.has('timestamp-query-inside-passes');
     this.adapterInfo = new AdapterInfo(adapterInfo);
 
     this.bufferManager = new BufferManager(this.device);

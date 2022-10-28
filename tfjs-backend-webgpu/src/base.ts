@@ -37,7 +37,7 @@ if (isWebGPUSupported()) {
     const adapter = await navigator.gpu.requestAdapter(gpuDescriptor);
     const adapterLimits = adapter.limits;
     const deviceDescriptor: GPUDeviceDescriptor = {};
-    const supportTimeQuery = adapter.features.has('timestamp-query');
+    const supportTimeQuery = adapter.features.has('timestamp-query-inside-passes');
     deviceDescriptor.requiredLimits = {
       'maxComputeWorkgroupStorageSize':
           adapterLimits.maxComputeWorkgroupStorageSize,
@@ -47,7 +47,8 @@ if (isWebGPUSupported()) {
     };
 
     if (supportTimeQuery) {
-      deviceDescriptor.requiredFeatures = ['timestamp-query'];
+      // @ts-ignore
+      deviceDescriptor.requiredFeatures = ['timestamp-query-inside-passes'];
     }
     const device: GPUDevice = await adapter.requestDevice(deviceDescriptor);
     const adapterInfo = await adapter.requestAdapterInfo();
